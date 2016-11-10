@@ -37,6 +37,9 @@ navigation:
 - text: Bakgrunn
   url: bakgrunn/
   internal: true
+- text: Behov
+  url: behov/
+  internal: true
 - text: Grensesnitt
   url: grensesnitt/
   internal: true
