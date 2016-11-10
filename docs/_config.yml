@@ -40,6 +40,9 @@ navigation:
 - text: Grensesnitt
   url: grensesnitt/
   internal: true
+- text: Swagger
+  url: swagger/
+  internal: true
 - text: Move API Repo
   url: https://github.com/difi/move-api
   internal: false
