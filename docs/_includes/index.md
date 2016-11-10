@@ -3,4 +3,4 @@
 
 Grensesnittet er under utarbeiding - alle som er interesserte er velkomne til å bidra aktivt gjennom å foreslå endringer som [Pull Requests](https://help.github.com/articles/about-pull-requests/).
 
-Den verbale delen av grensesnittet dokumentasjonen er i [Markdown](https://guides.github.com/features/mastering-markdown/) tilrettelagt for [Github Pages](https://pages.github.com/) ([Jekyll](https://jekyllrb.com/)). Grensesnittet er dokumentert med [Swagger](https://swagger.io), automatisk konvertert til Markdown ved hjelp av [SwaggerToMarkdown](https://github.com/Skookum/SwaggerToMarkdown)
+Den verbale delen av grensesnittet dokumentasjonen er i [Markdown](https://guides.github.com/features/mastering-markdown/) tilrettelagt for [Github Pages](https://pages.github.com/) ([Jekyll](https://jekyllrb.com/)). Grensesnittet er dokumentert med [Swagger](https://swagger.io), automatisk konvertert til Markdown ved hjelp av [Swagger2Markdown](http://swagger2markup.github.io/swagger2markup/1.1.0/)
