@@ -43,7 +43,7 @@ IP_message->> IP_message: Gjer klar til sending
 Fagløsning->> IP_message: Send
 </div>
 
-# SBDH 
+## SBDH 
 
 Ekspempel på SBDH ved sending til annen organisasjon
 
