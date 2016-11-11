@@ -13,9 +13,9 @@ subgraph Konvolutt
 el1[<b>Standard Business Document Header</b><br/> brukt til ruting av meldingen frem til mottaker]
 subgraph Forretningsmelding
 el2[<b>Meldingsspesifikk struktur</b><br/>brukt til effektiv håndtering av mottak]
+end
 subgraph Innhold
 el3[<b>ASIC-E med innhold</b><br/>En eller flere filer med strukturert informasjon som skal frem til mottaker]
-end
 end
 end
 </div>
