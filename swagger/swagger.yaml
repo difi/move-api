@@ -5,12 +5,160 @@ swagger: '2.0'
 
 # This is your document metadata
 info:
-  version: "1.0.0"
-  title: Grenseløse grensenitt - nextMove
-  description: Neste generasjon grensesnitt for å bygge utgående og konsumere inngående meldinger for en virksomhet 
+  version: "0.0.0"
+  title: BestEdu vNext
+  
+basePath: /v1
+produces:
+  - application/json
 
 # Describe your paths here
 paths:
+  # This is a path endpoint. Change it.
+  /receivers/{receiver-id}/capabilities:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Returns list of  `Capabilities` for given receiver id .
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        - name: receiver-id
+          in: path
+          description: id of the recevier to get capatilities for
+          required: true
+          type: integer
+          format: int32
+        - name: messagetype-id
+          in: query
+          description: messagetype-id to filter by
+          type: integer
+          format: int32
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfCapabilities
+            type: array
+            items:
+              title: Capability
+              type: object
+  /out/messages:
+    post:
+      description: create new message
+      parameters:
+        - name: sender-id
+          in: query
+          required: false
+          type: integer
+          format: int32
+        - name: receiver-id
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: messagetype-id
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: conversation-id
+          in: query
+          required: true
+          type: string
+          format: int32
+      responses:
+        200:
+          description: Creates resource for uploading messages
+          schema:
+            title : conversation-id
+            type: string
+    get:
+      description: Returns list of sent  `Messages` status.
+      parameters:
+        - name: receiver-id
+          in: query
+          description: receiver-id to filter by
+          required: false
+          type: integer
+          format: int32
+        - name: messagetype-id
+          in: query
+          description: messagetype-id to filter by
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: sent messages response
+          schema:
+            title: ArrayOfMessages
+            type: array
+            items:
+              title: Messages
+              type: object
+  /out/messages/{conversation-id}:
+    put:
+      description: upload message
+      parameters:
+        - name: conversation-id
+          in: path
+          description: id for message
+          required: true
+          type: string
+      responses:
+        200:
+          description: updates message
+        400:
+          description: invalid id
+    get:
+      description: Returns status for one message
+      parameters:
+      - name: conversation-id
+        in: path
+        description: Id of sent message
+        required: true
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: status for message by conversation-id
+          schema:
+            title: Message
+            type: object
+  /tracings/{conversation-id}:
+    get:
+      description: gets list of trace messages 
+      parameters:
+        - name: conversation-id
+          in: path
+          description: Id of sent message
+          required: true
+          type: string
+        - name: messagetype-id
+          in: query
+          description: filter by messagetype
+          required: false
+          type: integer
+          format: int32
+        - name: lastonly
+          in: query
+          description: filter to only return all trace messages, default is last
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: list of trace messages
+          schema:
+            title: ArrayOfTraceMessages
+            type: array
+            items:
+              title: Trace
+              type: object
   /out/types:
     get:
       description: |
@@ -41,15 +189,12 @@ paths:
                   type: string
                 infrastructure:
                   type: string
-
   /out/types/{messageTypeId}/prototype:
     get:
       description:
         Get a prototype object with mandatory fields needed to create message of the given type
-
       parameters:
-        -
-          name: messageTypeId
+        - name: messageTypeId
           in: path
           description: valid id of message type
           required: true
@@ -59,8 +204,13 @@ paths:
           description: Intended reciever of message
           required: false
           type: string
-          
       responses:
         200:
           description: Successful response
+          
+
+   
+  
       
+
+    
