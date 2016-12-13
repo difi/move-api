@@ -52,11 +52,6 @@ paths:
     post:
       description: create new message
       parameters:
-        - name: sender-id
-          in: query
-          required: false
-          type: integer
-          format: int32
         - name: receiver-id
           in: query
           required: true
@@ -65,13 +60,11 @@ paths:
         - name: messagetype-id
           in: query
           required: true
-          type: integer
-          format: int32
+          type: string
         - name: conversation-id
           in: query
-          required: true
+          required: false
           type: string
-          format: int32
       responses:
         200:
           description: Creates resource for uploading messages
@@ -207,6 +200,45 @@ paths:
       responses:
         200:
           description: Successful response
+  /in/messages/{messageTypeId}:
+    get:
+      description:
+        Gets a list of all incomming messages
+      parameters:
+        - name: messageTypeId
+          in: path
+          description: valid id of message type
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of incomming messages
+  /in/messages/pop/{messageTypeId}:
+    get:
+      description:
+        Gets a list of all incomming messages
+      parameters:
+        - name: messageTypeId
+          in: path
+          description: valid id of message type
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of incomming messages
+  /in/messages/{messageId}:
+    get:
+      description:
+        Gets message with id
+      parameters:
+        - name: messagemessageId
+          in: path
+          description: valid id of message type
+          required: true
+          type: string
+      responses:
+        200:
+          description: List of incomming messages
           
 
    
