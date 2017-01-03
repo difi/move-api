@@ -231,4 +231,22 @@ paths:
       responses:
         200:
           description: First incoming message in queue
-
+  /in/messages/file:
+    get:
+      description:
+        Gets the file with a given id from its corresponding message
+      parameters:
+        - name: conversationId
+          in: query
+          description: valid message id
+          required: true
+          type: string
+        - name: fileId
+          in: query
+          description: id of the file
+          required: true
+          type: string
+      responses:
+        200:
+          description: File with given id
+            
