@@ -14,40 +14,6 @@ produces:
 
 # Describe your paths here
 paths:
-  # This is a path endpoint. Change it.
-  /receivers/{receiver-id}/capabilities:
-    # This is a HTTP operation
-    get:
-      # Describe this verb here. Note: you can use markdown
-      description: |
-        Returns list of  `Capabilities` for given receiver id .
-      # This is array of GET operation parameters:
-      parameters:
-        # An example parameter that is in query and is required
-        - name: receiver-id
-          in: path
-          description: id of the recevier to get capatilities for
-          required: true
-          type: integer
-          format: int32
-        - name: messagetype-id
-          in: query
-          description: messagetype-id to filter by
-          type: integer
-          format: int32
-      # Expected responses for this operation:
-      responses:
-        # Response code
-        200:
-          description: Successful response
-          # A schema describing your response object.
-          # Use JSON Schema format
-          schema:
-            title: ArrayOfCapabilities
-            type: array
-            items:
-              title: Capability
-              type: object
   /out/messages:
     post:
       description: create new message
@@ -81,7 +47,7 @@ paths:
           type: integer
           format: int32
         - name: messagetype-id
-          in: query
+          in: path
           description: messagetype-id to filter by
           type: integer
           format: int32
@@ -95,7 +61,7 @@ paths:
               title: Messages
               type: object
   /out/messages/{conversation-id}:
-    put:
+    post:
       description: upload message
       parameters:
         - name: conversation-id
@@ -152,15 +118,15 @@ paths:
             items:
               title: Trace
               type: object
-  /out/types:
+  /out/types/{receiverId}:
     get:
       description: |
         Get messagetypes supported by this local endpoint for a given recipient organization
       parameters:
-        - name: receiver
-          in: query
-          description: Filter to supported types by organization identified (orgnumber)
-          required: false
+        - name: receiverId
+          in: path
+          description: Receiver identifier
+          required: true
           type: string
       responses:
         '200':
@@ -200,49 +166,53 @@ paths:
       responses:
         200:
           description: Successful response
-  /in/messages/{messageTypeId}:
+  /in/messages:
     get:
       description:
-        Gets a list of all incomming messages
+        Gets a list of all incoming messages
+      parameters:
+        - name: messagetypeId
+          in: query
+          description: valid id of message type
+          required: false
+          type: string
+        - name: conversationId
+          in: query
+          description: Id of received message
+          required: false
+          type: string
+      responses:
+        200:
+          description: Incoming message(s)
+  /in/messages/pop:
+    get:
+      description:
+        Gets the first message in the queue of a given type
       parameters:
         - name: messageTypeId
-          in: path
+          in: query
           description: valid id of message type
           required: false
           type: string
       responses:
         200:
-          description: List of incomming messages
-  /in/messages/pop/{messageTypeId}:
+          description: First incoming message in queue
+  /in/messages/file:
     get:
       description:
-        Gets a list of all incomming messages
+        Gets the file with a given id from its corresponding message
       parameters:
-        - name: messageTypeId
-          in: path
-          description: valid id of message type
-          required: false
+        - name: conversationId
+          in: query
+          description: valid message id
+          required: true
           type: string
-      responses:
-        200:
-          description: List of incomming messages
-  /in/messages/{messageId}:
-    get:
-      description:
-        Gets message with id
-      parameters:
-        - name: messagemessageId
-          in: path
-          description: valid id of message type
+        - name: fileId
+          in: query
+          description: id of the file
           required: true
           type: string
       responses:
         200:
-          description: List of incomming messages
-          
-
-   
-  
-      
-
-    
+          description: File with given id
+            
