@@ -1,6 +1,6 @@
 # Base configuration
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-markdown: kramdown
+#markdown: kramdown
 highlighter: rouge
 
 collections:
@@ -16,8 +16,8 @@ subtitle: Neste generasjon grensesnitt
 # For user/organization pages set this to an empty string
 # When working locally use jekyll serve --baseurl '' so that you can view everything at localhost:4000
 # See http://jekyllrb.com/docs/github-pages/ for more info
-#baseurl: ''
-baseurl: '/move-api'
+baseurl: ''
+#baseurl: '/move-api'
 
 # Author/Organization info to be displayed in the templates
 author:

@@ -1,0 +1,66 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "1.0.0"
+  title: Grenseløse grensenitt - nextMove
+  description: Neste generasjon grensesnitt for å bygge utgående og konsumere inngående meldinger for en virksomhet 
+
+# Describe your paths here
+paths:
+  /out/types:
+    get:
+      description: |
+        Get messagetypes supported by this local endpoint for a given recipient organization
+      parameters:
+        - name: receiver
+          in: query
+          description: Filter to supported types by organization identified (orgnumber)
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: ArrayOfMessgeTypes
+            type: array
+            items:
+              title: MessageType
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                schema:
+                  type: string
+                version:
+                  type: string
+                infrastructure:
+                  type: string
+
+  /out/types/{messageTypeId}/prototype:
+    get:
+      description:
+        Get a prototype object with mandatory fields needed to create message of the given type
+
+      parameters:
+        -
+          name: messageTypeId
+          in: path
+          description: valid id of message type
+          required: true
+          type: string
+        - name: receiver
+          in: query
+          description: Intended reciever of message
+          required: false
+          type: string
+          
+      responses:
+        200:
+          description: Successful response
+      
