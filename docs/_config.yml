@@ -40,6 +40,9 @@ navigation:
 - text: Behov
   url: behov/
   internal: true
+- text: Sikkerhet
+  url: sikkerhet/
+  internal: true
 - text: Grensesnitt
   url: grensesnitt/
   internal: true

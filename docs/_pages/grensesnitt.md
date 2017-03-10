@@ -13,9 +13,9 @@ subgraph Konvolutt
 el1[<b>Standard Business Document Header</b><br/> brukt til ruting av meldingen frem til mottaker]
 subgraph Forretningsmelding
 el2[<b>Meldingsspesifikk struktur</b><br/>brukt til effektiv håndtering av mottak]
+end
 subgraph Innhold
 el3[<b>ASIC-E med innhold</b><br/>En eller flere filer med strukturert informasjon som skal frem til mottaker]
-end
 end
 end
 </div>
@@ -42,3 +42,45 @@ IP_message->> Sertifikat: signer og evt. krypter
 IP_message->> IP_message: Gjer klar til sending
 Fagløsning->> IP_message: Send
 </div>
+
+## SBDH 
+
+Ekspempel på SBDH ved sending til annen organisasjon
+
+```json
+{
+  "StandardBusinessDocument": {
+    "StandardBusinessDocumentHeader": {
+      "HeaderVersion": "1.0",
+      "Sender": {
+        "Identifier": {
+          "Authority": "so6523-actorid-upis",
+          "ID": "9908:910077473"
+        }
+      },
+      "Receiver": {
+        "Identifier": {
+          "Authority": "so6523-actorid-upis",
+          "ID": "9908:910075918"
+        }
+      },
+      "DocumentIdentification": {
+        "Standard": "urn:no:difi:meldingsutveksling:2.0",
+        "TypeVersion": "2.0",
+        "InstanceIdentifier": "ff88849c-e281-4809-8555-7cd54952b916",
+        "Type": "digitaPost/noark5json", 
+        "CreationDateAndTime": "2016-04-11T15:29:58.753+02:00"
+      },
+      "BusinessScope": {
+        "Scope": {
+          "Type": "ConversationId",
+          "InstanceIdentifier": "37efbd4c-413d-4e2c-bbc5-257ef4a65a45",
+          "Identifier": "urn:no:difi:meldingsutveksling:2.0"          
+          }
+        }
+      }
+    }
+    "payload": "payload"
+  }
+}
+```
