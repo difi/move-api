@@ -5,21 +5,128 @@ swagger: '2.0'
 
 # This is your document metadata
 info:
-  version: "1.0.0"
-  title: Grenseløse grensenitt - nextMove
-  description: Neste generasjon grensesnitt for å bygge utgående og konsumere inngående meldinger for en virksomhet 
+  version: "0.0.0"
+  title: BestEdu vNext
+  
+basePath: /v1
+produces:
+  - application/json
 
 # Describe your paths here
 paths:
-  /out/types:
+  /out/messages:
+    post:
+      description: create new message
+      parameters:
+        - name: receiver-id
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: messagetype-id
+          in: query
+          required: true
+          type: string
+        - name: conversation-id
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: Creates resource for uploading messages
+          schema:
+            title : conversation-id
+            type: string
+    get:
+      description: Returns list of sent  `Messages` status.
+      parameters:
+        - name: receiver-id
+          in: query
+          description: receiver-id to filter by
+          required: false
+          type: integer
+          format: int32
+        - name: messagetype-id
+          in: path
+          description: messagetype-id to filter by
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: sent messages response
+          schema:
+            title: ArrayOfMessages
+            type: array
+            items:
+              title: Messages
+              type: object
+  /out/messages/{conversation-id}:
+    post:
+      description: upload message
+      parameters:
+        - name: conversation-id
+          in: path
+          description: id for message
+          required: true
+          type: string
+      responses:
+        200:
+          description: updates message
+        400:
+          description: invalid id
+    get:
+      description: Returns status for one message
+      parameters:
+      - name: conversation-id
+        in: path
+        description: Id of sent message
+        required: true
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: status for message by conversation-id
+          schema:
+            title: Message
+            type: object
+  /tracings/{conversation-id}:
+    get:
+      description: gets list of trace messages 
+      parameters:
+        - name: conversation-id
+          in: path
+          description: Id of sent message
+          required: true
+          type: string
+        - name: messagetype-id
+          in: query
+          description: filter by messagetype
+          required: false
+          type: integer
+          format: int32
+        - name: lastonly
+          in: query
+          description: filter to only return all trace messages, default is last
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: list of trace messages
+          schema:
+            title: ArrayOfTraceMessages
+            type: array
+            items:
+              title: Trace
+              type: object
+  /out/types/{receiverId}:
     get:
       description: |
         Get messagetypes supported by this local endpoint for a given recipient organization
       parameters:
-        - name: receiver
-          in: query
-          description: Filter to supported types by organization identified (orgnumber)
-          required: false
+        - name: receiverId
+          in: path
+          description: Receiver identifier
+          required: true
           type: string
       responses:
         '200':
@@ -41,15 +148,12 @@ paths:
                   type: string
                 infrastructure:
                   type: string
-
   /out/types/{messageTypeId}/prototype:
     get:
       description:
         Get a prototype object with mandatory fields needed to create message of the given type
-
       parameters:
-        -
-          name: messageTypeId
+        - name: messageTypeId
           in: path
           description: valid id of message type
           required: true
@@ -59,8 +163,56 @@ paths:
           description: Intended reciever of message
           required: false
           type: string
-          
       responses:
         200:
           description: Successful response
-      
+  /in/messages:
+    get:
+      description:
+        Gets a list of all incoming messages
+      parameters:
+        - name: messagetypeId
+          in: query
+          description: valid id of message type
+          required: false
+          type: string
+        - name: conversationId
+          in: query
+          description: Id of received message
+          required: false
+          type: string
+      responses:
+        200:
+          description: Incoming message(s)
+  /in/messages/pop:
+    get:
+      description:
+        Gets the first message in the queue of a given type
+      parameters:
+        - name: messageTypeId
+          in: query
+          description: valid id of message type
+          required: false
+          type: string
+      responses:
+        200:
+          description: First incoming message in queue
+  /in/messages/file:
+    get:
+      description:
+        Gets the file with a given id from its corresponding message
+      parameters:
+        - name: conversationId
+          in: query
+          description: valid message id
+          required: true
+          type: string
+        - name: fileId
+          in: query
+          description: id of the file
+          required: true
+          type: string
+      responses:
+        200:
+          description: File with given id
+            

@@ -1,5 +1,5 @@
 ---
-layout: swagger
+layout: page
 data: move-api
 ---
 
