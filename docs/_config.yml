@@ -3,6 +3,9 @@ exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 markdown: kramdown
 highlighter: rouge
 
+sass:
+  sass_dir: assets/css
+  
 encoding: UTF-8
 
 collections:
